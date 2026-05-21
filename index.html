@@ -1,37 +1,11 @@
-python3 << 'PYEOF'
-import base64
-
-def b64(fname, mime):
-    with open(f'/mnt/user-data/uploads/{fname}', 'rb') as f:
-        return f'data:{mime};base64,{base64.b64encode(f.read()).decode()}'
-
-L   = b64('panini-logo_2_2_1.png','image/png')
-AH  = b64('pi7_tool_capa-album-copa-do-mundo.jpg','image/jpeg')
-# MATÉRIA 1 — nova foto (loja Panini)
-AM1 = b64('panini_webp__0x800_subsampling-2.webp','image/webp')
-FIG = b64('fb8izszwaai13fq_221120222300_710x473_1-36138267.webp','image/webp')
-NEY = b64('101467561-topshot-brazils-forward-10-neymar-celebrates-scoring-his-teams-first-goal-during.avif','image/avif')
-CRI = b64('freepik_criancas-sentadas-em-roda-trocando-figurinhas-com-albuns-abertos-no-chao-cenario-de-calcada-ou-patio-escolar-com-clima-de-tarde_0001-1000x600.jpeg','image/jpeg')
-# MATÉRIA 4 — nova foto (álbum Copa 2026 criança)
-TRO = b64('Panini-abre-pre-venda-do-album-da-Copa-2026-e-reacende-febre-global-1068x591.webp','image/webp')
-COL = b64('image-103.png','image/png')
-TR2 = b64('spcriancas_guia_troca_figurinha.png','image/png')
-
-def hdr(active_home=False):
-    active = ' class="active"' if active_home else ''
-    back = '' if active_home else '<a onclick="go(\'home\')" style="cursor:pointer;font-weight:700;font-size:13px;color:var(--tp);">← Voltar</a>'
-    return f'''<div class="info-bar"><span>✦ Frete Grátis acima de R$289</span><span>✦ Parcele em até 12x sem juros</span><span>✦ Novidades toda semana</span></div>
-<header class="site-header">
-  <div class="logo" onclick="go('home')"><img src="{L}" alt="Panini"></div>
-  <div class="search-wrap"><input type="text" placeholder="Buscar matérias, quadrinhos, mangás..."><button><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="16" height="16"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.35-4.35"/></svg></button></div>
-  <div class="hicons">{back}<a><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>Entrar</a></div>
-</header>
-<nav class="site-nav"><div class="nav-inner"><a{active} onclick="go('home')">Blog</a><a>Marvel</a><a>DC Comics</a><a>Mangá</a><a>Álbuns ▾</a><a>Colecionáveis</a><a>Lançamentos</a><a>Promoções</a></div></nav>'''
-
-def ftr():
-    return f'''<footer class="site-footer"><div class="fi"><div><div class="flogo"><img src="{L}" alt="Panini"></div><p class="fdesc">O melhor do universo dos quadrinhos, mangás e álbuns de figurinhas. Matérias e novidades para fãs e colecionadores.</p></div><div class="fc"><h4>Categorias</h4><ul><li><a>Marvel</a></li><li><a>DC Comics</a></li><li><a>Mangá</a></li><li><a>Álbuns</a></li></ul></div><div class="fc"><h4>Sobre</h4><ul><li><a>Quem Somos</a></li><li><a>Equipe</a></li><li><a>Contato</a></li></ul></div><div class="fc"><h4>Redes Sociais</h4><ul><li><a>Instagram</a></li><li><a>Twitter / X</a></li><li><a>YouTube</a></li></ul></div></div><div class="fb">© 2025 Panini Blog — Trabalho Acadêmico. Todos os direitos reservados.</div></footer>'''
-
-css = """*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Panini Blog</title>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Nunito:wght@800&display=swap" rel="stylesheet">
+<style>*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{--bg:#fff;--bgl:#F4F3F8;--bgd:#282B33;--nav:#333333;--tp:#343D55;--ts:#24262F;--tm:#6B6F80;--green:#28C76F;--yellow:#FFF200;--blue:#8AB5FF;--border:#E0E0E6;--r:5px;--rc:6px}
 body{font-family:'Roboto',Arial,sans-serif;font-size:15px;color:var(--tp);background:var(--bgl);line-height:1.6}
 a{text-decoration:none;color:inherit}
@@ -113,11 +87,6 @@ img{display:block;width:100%;height:100%;object-fit:cover}
 .artigo-back{display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:700;color:var(--tp);margin-bottom:28px;border:1.5px solid var(--border);padding:7px 16px;border-radius:var(--r);cursor:pointer}
 .artigo-back:hover{background:var(--bgl)}
 .artigo-wrap h1{font-size:28px;font-weight:700;color:var(--ts);line-height:1.25;margin:10px 0 14px}
-.artigo-meta{display:flex;align-items:center;gap:10px;font-size:13px;color:var(--tm);margin-bottom:28px;padding-bottom:20px;border-bottom:2px solid var(--bgl)}
-.artigo-meta strong{color:var(--tp)}
-.artigo-hero{width:100%;height:400px;overflow:hidden;border-radius:var(--rc);margin-bottom:32px;line-height:0}
-.artigo-hero img{width:100%;height:100%;object-fit:cover}
-.artigo-lead{font-size:17px;color:var(--tp);line-height:1.75;font-weight:500;border-left:4px solid var(--yellow);padding-left:18px;margin-bottom:28px}
 .artigo-body h2{font-size:21px;font-weight:700;color:var(--ts);margin:32px 0 12px}
 .artigo-body p{font-size:15px;color:var(--tp);line-height:1.8;margin-bottom:18px}
 .artigo-body blockquote{background:var(--bgl);border-left:4px solid var(--yellow);padding:16px 20px;border-radius:0 var(--rc) var(--rc) 0;margin:24px 0;font-style:italic;color:var(--ts);font-size:16px}
@@ -126,52 +95,49 @@ img{display:block;width:100%;height:100%;object-fit:cover}
 .tabela{width:100%;border-collapse:collapse;margin:24px 0;font-size:14px}
 .tabela th{background:var(--bgd);color:var(--yellow);font-family:'Nunito',sans-serif;font-weight:800;padding:12px 16px;text-align:left}
 .tabela td{padding:12px 16px;border-bottom:1px solid var(--border);color:var(--tp);vertical-align:top}
-.tabela tr:nth-child(even) td{background:var(--bgl)}"""
-
-html = f"""<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Panini Blog</title>
-<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Nunito:wght@800&display=swap" rel="stylesheet">
-<style>{css}</style>
+.tabela tr:nth-child(even) td{background:var(--bgl)}</style>
 </head>
 <body>
 
 <!-- HOME -->
 <div id="home" class="page active">
-{hdr(True)}
+<div class="info-bar"><span>✦ Frete Grátis acima de R$289</span><span>✦ Parcele in até 12x sem juros</span><span>✦ Novidades toda semana</span></div>
+<header class="site-header">
+  <div class="logo" onclick="go('home')"><img src="https://images.deliveryhero.io/image/pedidosya/brands/br-panini-logo.png" alt="Panini"></div>
+  <div class="search-wrap"><input type="text" placeholder="Buscar matérias, quadrinhos, mangás..."><button><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="16" height="16"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.35-4.35"/></svg></button></div>
+  <div class="hicons"><a><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>Entrar</a></div>
+</header>
+<nav class="site-nav"><div class="nav-inner"><a class="active" onclick="go('home')">Blog</a><a>Marvel</a><a>DC Comics</a><a>Mangá</a><a>Álbuns ▾</a><a>Colecionáveis</a><a>Lançamentos</a><a>Promoções</a></div></nav>
 <section class="hero">
   <div class="hero-inner">
     <div class="hero-text">
       <div class="eyebrow">✦ Destaque do mês</div>
-      <h1>O universo geek em palavras e imagens</h1>
+      <h1>O universo Panini em palavras e imagens</h1>
       <p>Matérias, análises, novidades e curiosidades sobre quadrinhos, mangás e álbuns direto para você.</p>
       <span class="btn-g" onclick="go('home')">Ver matérias</span>
     </div>
-    <div class="hero-img"><img src="{AH}" alt="Álbum Copa 2026"></div>
+    <div class="hero-img"><img src="https://images.unsplash.com/photo-1608889174637-3c44f6326f1c?w=500&auto=format&fit=crop&q=60" alt="Álbum Copa 2026"></div>
   </div>
 </section>
 <div class="main-wrap">
   <div class="sec-hd"><h2 class="sec-title">Matérias em Destaque</h2><span class="ver-mais">Ver todas →</span></div>
   <div class="dg">
     <div class="card" onclick="go('a1')">
-      <div class="cimg" style="height:240px;"><img src="{AM1}" alt="Loja Panini"></div>
+      <div class="cimg" style="height:240px;"><img src="https://images.unsplash.com/photo-1541963463532-d68292c34b19?w=800&auto=format&fit=crop&q=80" alt="Álbum Panini Copa 2026"></div>
       <div class="cbody">
         <span class="tag tm">Marca & Cultura</span>
         <h2>Panini: mais do que figurinhas, uma marca que atravessa gerações</h2>
         <p>A empresa transformou colecionáveis em experiências emocionais e sociais. Entenda como a Panini constrói conexões afetivas duradouras com cada geração.</p>
-        <div class="cmeta"><strong>Redação Panini Blog</strong><span>•</span><span>Maio de 2025</span><span class="rm">Ler matéria →</span></div>
+        <div class="cmeta"><strong>Redação Panini Blog</strong><span>•</span><span>Maio de 2026</span><span class="rm">Ler matéria →</span></div>
       </div>
     </div>
     <div class="card" onclick="go('a2')">
-      <div class="cimg" style="height:210px;"><img src="{NEY}" alt="Neymar Seleção Brasileira"></div>
+      <div class="cimg" style="height:210px;"><img src="https://images.unsplash.com/photo-1534447677768-be436bb09401?w=800&auto=format&fit=crop&q=80" alt="Neymar Seleção Brasileira"></div>
       <div class="cbody sm">
         <span class="tag tm">Seleção Brasileira</span>
         <h2>PANINI celebra a convocação de Neymar com figurinha comemorativa</h2>
         <p>A volta do craque à Seleção reacende a emoção dos colecionadores. Figurinha especial já está nos pacotinhos!</p>
-        <div class="cmeta"><strong>Redação Panini Blog</strong><span>•</span><span>Maio de 2025</span><span class="rm">Ler →</span></div>
+        <div class="cmeta"><strong>Redação Panini Blog</strong><span>•</span><span>Maio de 2026</span><span class="rm">Ler →</span></div>
       </div>
     </div>
   </div>
@@ -181,21 +147,21 @@ html = f"""<!DOCTYPE html>
     <div class="sec-hd"><h2 class="sec-title">Mais do Universo Panini</h2><span class="ver-mais">Ver todas →</span></div>
     <div class="g2">
       <div class="card" onclick="go('a3')">
-        <div class="cimg" style="height:190px;"><img src="{CRI}" alt="Crianças trocando figurinhas"></div>
+        <div class="cimg" style="height:190px;"><img src="https://images.unsplash.com/photo-1532012197267-da84d127e765?w=800&auto=format&fit=crop&q=80" alt="Crianças trocando figurinhas"></div>
         <div class="cbody sm">
           <span class="tag tn">Comportamento & Cultura</span>
           <h2>A geração digital que ainda quer segurar a figurinha na mão</h2>
           <p>Num mundo de tudo disponível e nada para guardar, o envelope lacrado virou um ato quase revolucionário.</p>
-          <div class="cmeta"><strong>Redação Panini Blog</strong><span>•</span><span>Maio de 2025 · 4 min</span><span class="rm">Ler →</span></div>
+          <div class="cmeta"><strong>Redação Panini Blog</strong><span>•</span><span>Maio de 2026 · 4 min</span><span class="rm">Ler →</span></div>
         </div>
       </div>
       <div class="card" onclick="go('a4')">
-        <div class="cimg" style="height:190px;"><img src="{TRO}" alt="Álbum Copa 2026"></div>
+        <div class="cimg" style="height:190px;"><img src="https://images.unsplash.com/photo-1513151233558-d860c5398176?w=800&auto=format&fit=crop&q=80" alt="Figurinhas da Seleção Brasileira"></div>
         <div class="cbody sm">
           <span class="tag tsoc">Sociedade</span>
           <h2>Muito além do papel: como o álbum da Copa une todas as classes sociais</h2>
           <p>De executivos a estudantes, o álbum da Panini nivela diferenças e cria conexões humanas que transcendem classe e geração.</p>
-          <div class="cmeta"><strong>Redação Panini Blog</strong><span>•</span><span>Maio de 2025 · 6 min</span><span class="rm">Ler →</span></div>
+          <div class="cmeta"><strong>Redação Panini Blog</strong><span>•</span><span>Maio de 2026 · 6 min</span><span class="rm">Ler →</span></div>
         </div>
       </div>
     </div>
@@ -206,24 +172,30 @@ html = f"""<!DOCTYPE html>
   <p>Receba as novidades, lançamentos e matérias exclusivas direto no seu e-mail.</p>
   <div class="nf"><input type="text" placeholder="Seu nome"><input type="email" placeholder="Seu e-mail"><button>Enviar</button></div>
 </section>
-{ftr()}
+<footer class="site-footer"><div class="fi"><div><div class="flogo"><img src="https://images.deliveryhero.io/image/pedidosya/brands/br-panini-logo.png" alt="Panini"></div><p class="fdesc">O melhor do universo dos quadrinhos, mangás e álbuns de figurinhas. Matérias e novidades para fans e colecionadores.</p></div><div class="fc"><h4>Categorias</h4><ul><li><a>Marvel</a></li><li><a>DC Comics</a></li><li><a>Mangá</a></li><li><a>Álbuns</a></li></ul></div><div class="fc"><h4>Sobre</h4><ul><li><a>Quem Somos</a></li><li><a>Equipe</a></li><li><a>Contato</a></li></ul></div><div class="fc"><h4>Redes Sociais</h4><ul><li><a>Instagram</a></li><li><a>Twitter / X</a></li><li><a>YouTube</a></li></ul></div></div><div class="fb">© 2026 Panini Blog — Trabalho Acadêmico. Todos os direitos reservados.</div></footer>
 </div>
 
 <!-- ARTIGO 1 -->
 <div id="a1" class="page">
-{hdr()}
+<div class="info-bar"><span>✦ Frete Grátis acima de R$289</span><span>✦ Parcele em até 12x sem juros</span><span>✦ Novidades toda semana</span></div>
+<header class="site-header">
+  <div class="logo" onclick="go('home')"><img src="https://images.deliveryhero.io/image/pedidosya/brands/br-panini-logo.png" alt="Panini"></div>
+  <div class="search-wrap"><input type="text" placeholder="Buscar matérias, quadrinhos, mangás..."><button><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="16" height="16"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.35-4.35"/></svg></button></div>
+  <div class="hicons"><a onclick="go('home')" style="cursor:pointer;font-weight:700;font-size:13px;color:var(--tp);">← Voltar</a><a><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>Entrar</a></div>
+</header>
+<nav class="site-nav"><div class="nav-inner"><a onclick="go('home')">Blog</a><a>Marvel</a><a>DC Comics</a><a>Mangá</a><a>Álbuns ▾</a><a>Colecionáveis</a><a>Lançamentos</a><a>Promoções</a></div></nav>
 <div style="background:var(--bg);min-height:80vh;">
 <div class="artigo-wrap">
   <span class="artigo-back" onclick="go('home')">← Voltar ao blog</span>
   <span class="tag tm">Marca & Cultura</span>
   <h1>Panini: mais do que figurinhas, uma marca que atravessa gerações</h1>
-  <div class="artigo-meta"><strong>Redação Panini Blog</strong><span>•</span><span>Maio de 2025</span><span>•</span><span>5 min de leitura</span></div>
-  <div class="artigo-hero"><img src="{AM1}" alt="Loja Panini"></div>
-  <p class="artigo-lead">A empresa transformou um simples hábito de colecionar em uma experiência marcada por emoção, nostalgia e conexão entre pessoas de diferentes gerações.</p>
+  <div class="artigo-meta"><strong>Redação Panini Blog</strong><span>•</span><span>Maio de 2026</span><span>•</span><span>5 min de leitura</span></div>
+  <div class="artigo-hero"><img src="https://images.unsplash.com/photo-1541963463532-d68292c34b19?w=800&auto=format&fit=crop&q=80" alt="Álbum Panini Copa 2026"></div>
+  <div class="artigo-lead">A empresa transformou um simples hábito de colecionar em uma experiência marcada por emoção, nostalgia e conexão entre pessoas de diferentes gerações.</p>
   <div class="artigo-body">
     <p>A Panini se tornou uma das marcas mais reconhecidas do mundo quando o assunto é colecionáveis e álbuns de figurinhas. Ao longo dos anos, a empresa transformou um simples hábito de colecionar em uma experiência marcada por emoção, nostalgia e conexão entre pessoas de diferentes gerações.</p>
     <p>Durante grandes eventos esportivos, como a Copa do Mundo, a marca ganha ainda mais destaque ao lançar álbuns que movimentam milhões de consumidores ao redor do mundo. Mais do que um produto, a Panini oferece uma experiência que envolve expectativa, troca de figurinhas e interação social.</p>
-    <div class="artigo-img"><img src="{FIG}" alt="Figurinhas da Seleção Brasileira"></div>
+    <div class="artigo-img"><img src="https://images.unsplash.com/photo-1531525645387-7f14be1bdbbd?w=800&auto=format&fit=crop&q=80" alt="Álbum Panini aberto com figurinhas coladas"></div>
     <h2>A força das memórias afetivas</h2>
     <p>A força da marca está justamente na sua capacidade de criar memórias afetivas. Muitas pessoas cresceram colecionando figurinhas e hoje compartilham essa experiência com amigos, familiares e até com novas gerações, fortalecendo ainda mais a identidade da empresa.</p>
     <blockquote>"Mais do que completar um álbum, a Panini mostra como marcas fortes conseguem criar conexões emocionais duradouras com seus consumidores."</blockquote>
@@ -233,25 +205,31 @@ html = f"""<!DOCTYPE html>
   </div>
 </div>
 </div>
-{ftr()}
+<footer class="site-footer"><div class="fi"><div><div class="flogo"><img src="https://images.deliveryhero.io/image/pedidosya/brands/br-panini-logo.png" alt="Panini"></div><p class="fdesc">O melhor do universo dos quadrinhos, mangás e álbuns de figurinhas. Matérias e novidades para fãs e colecionadores.</p></div><div class="fc"><h4>Categorias</h4><ul><li><a>Marvel</a></li><li><a>DC Comics</a></li><li><a>Mangá</a></li><li><a>Álbuns</a></li></ul></div><div class="fc"><h4>Sobre</h4><ul><li><a>Quem Somos</a></li><li><a>Equipe</a></li><li><a>Contato</a></li></ul></div><div class="fc"><h4>Redes Sociais</h4><ul><li><a>Instagram</a></li><li><a>Twitter / X</a></li><li><a>YouTube</a></li></ul></div></div><div class="fb">© 2026 Panini Blog — Trabalho Acadêmico. Todos os direitos reservados.</div></footer>
 </div>
 
 <!-- ARTIGO 2 -->
 <div id="a2" class="page">
-{hdr()}
+<div class="info-bar"><span>✦ Frete Grátis acima de R$289</span><span>✦ Parcele em até 12x sem juros</span><span>✦ Novidades toda semana</span></div>
+<header class="site-header">
+  <div class="logo" onclick="go('home')"><img src="https://images.deliveryhero.io/image/pedidosya/brands/br-panini-logo.png" alt="Panini"></div>
+  <div class="search-wrap"><input type="text" placeholder="Buscar matérias, quadrinhos, mangás..."><button><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="16" height="16"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.35-4.35"/></svg></button></div>
+  <div class="hicons"><a onclick="go('home')" style="cursor:pointer;font-weight:700;font-size:13px;color:var(--tp);">← Voltar</a><a><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>Entrar</a></div>
+</header>
+<nav class="site-nav"><div class="nav-inner"><a onclick="go('home')">Blog</a><a>Marvel</a><a>DC Comics</a><a>Mangá</a><a>Álbuns ▾</a><a>Colecionáveis</a><a>Lançamentos</a><a>Promoções</a></div></nav>
 <div style="background:var(--bg);min-height:80vh;">
 <div class="artigo-wrap">
   <span class="artigo-back" onclick="go('home')">← Voltar ao blog</span>
   <span class="tag tm">Seleção Brasileira</span>
   <h1>PANINI celebra a convocação de Neymar com figurinha comemorativa</h1>
-  <div class="artigo-meta"><strong>Redação Panini Blog</strong><span>•</span><span>Maio de 2025</span><span>•</span><span>3 min de leitura</span></div>
-  <div class="artigo-hero"><img src="{NEY}" alt="Neymar Seleção Brasileira"></div>
+  <div class="artigo-meta"><strong>Redação Panini Blog</strong><span>•</span><span>Maio de 2026</span><span>•</span><span>3 min de leitura</span></div>
+  <div class="artigo-hero"><img src="https://images.unsplash.com/photo-1534447677768-be436bb09401?w=800&auto=format&fit=crop&q=80" alt="Neymar Seleção Brasileira"></div>
   <p class="artigo-lead">A magia está de volta aos gramados! A PANINI comemora a convocação de Neymar para defender novamente a camisa da Seleção Brasileira.</p>
   <div class="artigo-body">
     <p>Um jogador que marcou gerações, colecionou momentos históricos e segue inspirando milhões de fãs dentro e fora dos estádios. Em cada álbum, figurinha e coleção, a paixão pelo futebol ganha vida, e Neymar sempre foi uma das estrelas mais procuradas pelos colecionadores brasileiros.</p>
     <h2>Uma convocação que emociona os fãs</h2>
     <p>A volta de Neymar à lista de convocados reacende a emoção dos torcedores brasileiros e também dos colecionadores apaixonados pelo universo PANINI. Cada convocação cria novas histórias, novos momentos inesquecíveis e, claro, novas figurinhas que eternizam capítulos importantes do futebol mundial.</p>
-    <div class="artigo-img"><img src="{FIG}" alt="Figurinhas Seleção Brasileira"></div>
+    <div class="artigo-img"><img src="https://images.unsplash.com/photo-1508098682722-e99c43a406b2?w=800&auto=format&fit=crop&q=80" alt="Bola de futebol na rede do gol"></div>
     <p>Para os fãs, Neymar representa talento, ousadia e a alegria característica do futebol brasileiro. Para a PANINI, ele segue sendo um dos grandes nomes que ajudam a transformar paixão em coleção.</p>
     <h2>A nova figurinha está chegando aos pacotinhos!</h2>
     <p>Para comemorar esse momento especial, a PANINI anuncia uma figurinha comemorativa de Neymar que estará disponível no álbum da coleção. Os fãs poderão encontrar a nova figurinha nos tradicionais pacotinhos PANINI e completar ainda mais essa jornada emocionante ao lado da Seleção Brasileira.</p>
@@ -260,92 +238,18 @@ html = f"""<!DOCTYPE html>
   </div>
 </div>
 </div>
-{ftr()}
-</div>
-
-<!-- ARTIGO 3 -->
-<div id="a3" class="page">
-{hdr()}
-<div style="background:var(--bg);min-height:80vh;">
-<div class="artigo-wrap">
-  <span class="artigo-back" onclick="go('home')">← Voltar ao blog</span>
-  <span class="tag tn">Comportamento & Cultura</span>
-  <h1>A geração digital que ainda quer segurar a figurinha na mão</h1>
-  <div class="artigo-meta"><strong>Redação Panini Blog</strong><span>•</span><span>Maio de 2025</span><span>•</span><span>4 min de leitura</span></div>
-  <div class="artigo-hero"><img src="{CRI}" alt="Crianças trocando figurinhas"></div>
-  <p class="artigo-lead">Num mundo de tudo disponível e nada para guardar, o envelope lacrado virou um ato quase revolucionário.</p>
-  <div class="artigo-body">
-    <p>Existe uma memória que atravessa gerações: olhar para a pagininha em branco, sentir uma mistura de frustração e esperança, e então abrir mais um pacotinho. O ritual da figurinha nunca foi só sobre futebol — é sobre o humano que existe dentro de quem coleciona.</p>
-    <p>O curioso é que esse ritual está mais vivo do que nunca justamente agora, quando tudo pode ser acessado com um clique. Talvez por isso mesmo. Quando tudo é instantâneo e infinito, a raridade deixa de ser um defeito e vira o próprio produto. O consumidor de hoje não quer apenas o conteúdo — quer a experiência de conquistá-lo.</p>
-    <h2>O que você não pode dar um print</h2>
-    <p>A figurinha cumpre algo que o digital ainda não conseguiu copiar: ela é pequena, frágil, única no seu estado individual — e absolutamente irreproduzível por um screenshot. Você pode salvar uma imagem, mas não pode segurar ela, cheirá-la, colá-la com cuidado numa página que é só sua.</p>
-    <div class="artigo-img"><img src="{COL}" alt="Criança colando figurinha no álbum"></div>
-    <blockquote>"Nenhum álbum da Copa é igual ao outro. O seu é seu — incompleto ou completo, ele conta a história de quem você é."</blockquote>
-    <h2>A Copa como momento que não se repete</h2>
-    <p>Eventos como a Copa do Mundo criam janelas únicas: momentos em que o mundo para e olha para o mesmo ponto. O álbum é um artefato desse tempo específico — irrecuperável depois que o apito final soar. Quem completa o álbum em 2026 não está só arquivando figurinhas; está preservando um pedaço de algo que aconteceu uma vez e não volta mais.</p>
-    <h2>O pretexto para se encontrar</h2>
-    <p>Colecionadores não existem em isolamento. O álbum é, antes de mais nada, uma desculpa para conversar. A troca de figurinhas no intervalo, na mesa do almoço de domingo, prescinde de celular, senha de wi-fi ou bateria. Você pode ouvir música sozinho com fone de ouvido — mas não pode trocar figurinha sozinho.</p>
-    <p>Talvez seja exatamente isso que explica o que estamos vendo: quanto mais digital fica o mundo, mais as pessoas sentem falta de uma razão para juntar cadeiras. O físico, aqui, não é nostalgia. É escolha.</p>
-  </div>
-</div>
-</div>
-{ftr()}
-</div>
-
-<!-- ARTIGO 4 -->
-<div id="a4" class="page">
-{hdr()}
-<div style="background:var(--bg);min-height:80vh;">
-<div class="artigo-wrap">
-  <span class="artigo-back" onclick="go('home')">← Voltar ao blog</span>
-  <span class="tag tsoc">Sociedade</span>
-  <h1>Muito além do papel: como o álbum da Copa une todas as classes sociais no cotidiano</h1>
-  <div class="artigo-meta"><strong>Redação Panini Blog</strong><span>•</span><span>Maio de 2025</span><span>•</span><span>6 min de leitura</span></div>
-  <div class="artigo-hero"><img src="{TRO}" alt="Álbum Copa 2026"></div>
-  <p class="artigo-lead">De quatro em quatro anos, um fenômeno silencioso — mas extremamente barulhento nos pátios e praças — toma conta do Brasil. Homens e mulheres de terno, crianças com uniformes escolares, CEOs e universitários. À primeira vista, parecem não ter nada em comum. Basta um pedaço de papel brilhante para que todos falem a mesma língua.</p>
-  <div class="artigo-body">
-    <p>O álbum de figurinhas da Copa do Mundo da Panini vai muito além do colecionacionismo: ele é um dos maiores catalisadores sociais do nosso tempo, impactando o dia a dia de todas as classes sociais de forma única.</p>
-    <h2>O chão da praça e o topo do prédio: a democracia do "Bate-Bafo"</h2>
-    <p>Em uma sociedade frequentemente dividida por barreiras socioeconômicas, o álbum da Copa atua como um "nivelador social". Na hora da troca, o valor que importa não é o do saldo bancário, mas sim o daquela figurinha difícil que falta para completar a página.</p>
-    <p><strong>Nas Periferias e Escolas Públicas:</strong> O álbum é sinônimo de comunidade e resiliência. O clássico "jogo do bafo" ganha as calçadas. Ali, a habilidade com as mãos pode multiplicar o patrimônio de figurinhas de uma criança, transformando o ato de colecionar em pura convivência e criatividade.</p>
-    <p><strong>Nos Centros Financeiros e Escritórios:</strong> Não é raro ver executivos se reunindo no horário do almoço com listas de "faltas" no celular, negociando com a mesma seriedade com que fecham contratos milionários.</p>
-    <div class="artigo-img"><img src="{TR2}" alt="Crianças trocando figurinhas na escola"></div>
-    <blockquote>"Nas famosas bancas de troca, o engenheiro e o rodoviário sentam-se lado a lado no meio-fio. O único status que importa é: 'Você tem a brilhante que eu preciso?'"</blockquote>
-    <h2>O impacto no cotidiano: microeconomia e novas rotinas</h2>
-    <p>A febre das figurinhas altera a rotina diária das cidades e mexe com o bolso e o comportamento de todo mundo, adaptando-se à realidade de cada bolso.</p>
-    <table class="tabela">
-      <tr><th>Classe Social</th><th>Como o Álbum Afeta o Cotidiano?</th></tr>
-      <tr><td><strong>Classes D e E</strong></td><td>Comprar um pacotinho vira o prêmio da semana para os filhos. A troca comunitária é a regra de ouro para fazer o investimento valer a pena.</td></tr>
-      <tr><td><strong>Classe C</strong></td><td>Movimenta as bancas de jornal do bairro. Cria uma rede de sociabilidade entre vizinhos que mal se falavam antes da Copa.</td></tr>
-      <tr><td><strong>Classes A e B</strong></td><td>Entra a cultura dos "combos" e caixas fechadas. Encontros marcados em shoppings, mas a frustração de achar uma figurinha repetida é a mesma.</td></tr>
-    </table>
-    <h2>O resgate do "olho no olho" na era digital</h2>
-    <p>Vivemos colados nas telas dos smartphones. Paradoxalmente, o álbum da Panini — um produto físico, de papel e cola — é o que consegue desconectar as pessoas do mundo virtual para conectá-las no mundo real.</p>
-    <div class="artigo-img"><img src="{CRI}" alt="Crianças reunidas trocando figurinhas"></div>
-    <p>Para as classes mais abastadas, é uma oportunidade rara de tirar os filhos do tablet e ensiná-los sobre negociação, frustração e paciência. Para as classes mais populares, é o fortalecimento de laços afetivos que a tecnologia muitas vezes isola.</p>
-    <h2>Conclusão: a verdadeira taça é a conexão</h2>
-    <p>No final das contas, o álbum da Copa do Mundo não é sobre quem tem mais dinheiro para comprar caixas de pacotinhos, mas sim sobre a jornada. É sobre o avô que coleciona com o neto, o colega de trabalho que vira amigo, e o desconhecido na rua que vira um aliado de negociação.</p>
-    <blockquote>"Em um mundo que insiste em nos separar em bolhas, a Panini prova, a cada quatro anos, que ainda existem paixões puras capazes de colocar todo mundo na mesma calçada."</blockquote>
-  </div>
-</div>
-</div>
-{ftr()}
+<footer class="site-footer"><div class="fi"><div><div class="flogo"><img src="https://images.deliveryhero.io/image/pedidosya/brands/br-panini-logo.png" alt="Panini"></div><p class="fdesc">O melhor do universo dos quadrinhos, mangás e álbuns de figurinhas. Matérias e novidades para fãs e colecionadores.</p></div><div class="fc"><h4>Categorias</h4><ul><li><a>Marvel</a></li><li><a>DC Comics</a></li><li><a>Mangá</a></li><li><a>Álbuns</a></li></ul></div><div class="fc"><h4>Sobre</h4><ul><li><a>Quem Somos</a></li><li><a>Equipe</a></li><li><a>Contato</a></li></ul></div><div class="fc"><h4>Redes Sociais</h4><ul><li><a>Instagram</a></li><li><a>Twitter / X</a></li><li><a>YouTube</a></li></ul></div></div><div class="fb">© 2026 Panini Blog — Trabalho Acadêmico. Todos os direitos reservados.</div></footer>
 </div>
 
 <script>
-function go(id){{
-  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
-  document.getElementById(id).classList.add('active');
-  window.scrollTo(0,0);
-}}
+function go(pageId) {
+  document.querySelectorAll('.page').forEach(page => {
+    page.classList.remove('active');
+  });
+  document.getElementById(pageId).classList.add('active');
+  window.scrollTo(0, 0);
+}
 </script>
-</body>
-</html>"""
 
-out = '/mnt/user-data/outputs/panini-blog-final.html'
-with open(out, 'w', encoding='utf-8') as f:
-    f.write(html)
-import os
-print(f"OK — {os.path.getsize(out):,} bytes")
-PYEOF
-  
+</body>
+</html>
